@@ -10,10 +10,18 @@ class Bot:
         self.commands = Commands().commands
 
         @self.client.event
+        async def on_message(message):
+            if message.content.startswith(self.settings.prefix):
+                if message.author != self.client.user:
+                    function = self.messageTrimmer(message)
+                    if function[0] in self.commands:
+                        await self.commands[function[0]](self, message, function)
+            return
+
+        @self.client.event
         async def on_ready():
             print("Ready!")
             return
-        return
 
     def start(self):
         print("Starting...")
@@ -23,6 +31,10 @@ class Bot:
     async def end(self):
         print("Shutting down...")
         await self.client.logout()
+        return
+
+    async def sendMessage(self, message, messageText):
+        await message.channel.send(messageText)
         return
 
     def messageTrimmer(self, message):
