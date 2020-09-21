@@ -1,8 +1,10 @@
 from settings import Settings
+from bot import Bot
 
 def main():
     settings = Settings()
-    print(settings.token)
+    Alfa = Bot(settings)
+    Alfa.start()
     return
 
 main()
