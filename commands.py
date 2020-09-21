@@ -3,4 +3,10 @@ class Commands:
     
     def __init__(self):
         self.commands = dict()
+        self.loadCommands()
+        return
+
+    def loadCommands(self):
+        import functionsBase
+        functionsBase.commandLoader(self.commands)
         return
