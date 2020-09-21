@@ -22,3 +22,7 @@ class Bot:
         print("Shutting down...")
         await self.client.logout()
         return
+
+    def messageTrimmer(self, message):
+        msgtxt = message.content[len(self.settings.prefix):].strip().split(' ', 1)
+        return msgtxt
