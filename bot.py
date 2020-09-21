@@ -1,4 +1,5 @@
 import discord
+from commands import Commands 
 
 class Bot:
     '''low level client manipulation'''
@@ -6,6 +7,7 @@ class Bot:
     def __init__(self, settings):
         self.client = discord.Client()
         self.settings = settings
+        self.commands = Commands().commands
 
         @self.client.event
         async def on_ready():
