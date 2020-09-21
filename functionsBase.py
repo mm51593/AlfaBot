@@ -1,5 +1,5 @@
 def commandLoader(commandDict):
-    commandDict[shutdown] = shutdown
+    commandDict['shutdown'] = shutdown
     return
 
 async def shutdown(bot):
