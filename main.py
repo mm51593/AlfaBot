@@ -1,4 +1,3 @@
-import discord
 from settings import Settings
 
 def main():
