@@ -8,5 +8,11 @@ class Commands:
 
     def loadCommands(self):
         import functionsBase
-        functionsBase.commandLoader(self.commands)
+        self.commandLoader(functionsBase.functionsBase)
+        return
+
+    def commandLoader(self, target):
+        for x in dir(target):
+            if not x.startswith('__'):
+                self.commands[x] = getattr(target, x)
         return

@@ -1,7 +1,9 @@
-def commandLoader(commandDict):
-    commandDict['shutdown'] = shutdown
-    return
+class functionsBase:
+    
+    async def shutdown(bot, *args):
+        await bot.end()
+        return
 
-async def shutdown(bot, *args):
-    await bot.end()
-    return
+    async def test(bot, message, *args):
+        await bot.sendMessage(message, 'Test')
+        return
