@@ -9,6 +9,8 @@ class Commands:
     def loadCommands(self):
         import functionsBase
         self.commandLoader(functionsBase.functionsBase)
+        import functionsVoice
+        self.commandLoader(functionsVoice.functionsVoice)
         return
 
     def commandLoader(self, target):
