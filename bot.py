@@ -1,5 +1,6 @@
 import discord
 from commands import Commands 
+from voicebot import VoiceBot
 
 class Bot:
     '''low level client manipulation'''
@@ -8,6 +9,7 @@ class Bot:
         self.client = discord.Client()
         self.settings = settings
         self.commands = Commands().commands
+        self.voice = VoiceBot(self.client)
 
         @self.client.event
         async def on_message(message):
