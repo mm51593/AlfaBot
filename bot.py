@@ -15,9 +15,9 @@ class Bot:
         async def on_message(message):
             if message.content.startswith(self.settings.prefix):
                 if message.author != self.client.user:
-                    function = self.messageTrimmer(message)
-                    if function[0] in self.commands:
-                        await self.commands[function[0]](self, message, function)
+                    fullCommand = self.messageTrimmer(message)
+                    if fullCommand[0] in self.commands:
+                        await self.commands[fullCommand[0]](self, message, fullCommand)
             return
 
         @self.client.event
