@@ -16,8 +16,10 @@ class VoiceBot:
         del self.connections[voiceConnection.guild]
         
 
-    # TODO: move_to functionality
+    async def moveToVoiceChannel(self, voiceClient, voiceChannel):
+        # retains VoiceClient, unlike disconnect->connect
+        await voiceClient.move_to(voiceChannel)
 
     async def playMusic(self, voiceConnection):
-        source = FFmpegPCMAudio(r'D:\Users\Maks\Music\y2mate.com - Persona Q2 OST_ Pull the Trigger (Kotone Shiomi Battle Theme)_NLyznZmzPgA.mp3')
+        source = FFmpegPCMAudio()
         voiceConnection.play(source)

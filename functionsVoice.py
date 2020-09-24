@@ -11,7 +11,8 @@ class functionsVoice:
                         if currentConnection.channel == channel:
                             return
                         else:
-                            await bot.commands['leave'](bot, message)
+                            await bot.voice.moveToVoiceChannel(currentConnection, channel)
+                            return
                     await bot.voice.connectToVoiceChannel(channel)
                     return
                 
