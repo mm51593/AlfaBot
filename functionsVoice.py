@@ -18,3 +18,9 @@ class functionsVoice:
     async def leave(bot, message, *args):
         if bot.voice.connections.get(message.guild) != None:
             await bot.voice.disconnectFromVoiceChannel(bot.voice.connections[message.guild])
+
+    
+    async def play(bot, message, *args):
+        vclient = bot.voice.connections.get(message.guild)
+        if vclient != None:
+            await bot.voice.playMusic(vclient)
