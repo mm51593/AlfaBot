@@ -25,7 +25,8 @@ class VoiceBot:
         ytdl_format_options = {'format': 'bestaudio/best'}
         ytdl = YoutubeDL(ytdl_format_options)
         try:
-            data = ytdl.extract_info(url, download = False)
+            data = ytdl.extract_info(url, download = True)
         except:
             pass
-        voiceConnection.play(FFmpegPCMAudio(data['url']))
+        filename = ytdl.prepare_filename(data)
+        voiceConnection.play(FFmpegPCMAudio(filename))
