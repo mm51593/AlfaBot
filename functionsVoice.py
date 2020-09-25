@@ -24,4 +24,9 @@ class functionsVoice:
     async def play(bot, message, fullCommand, *args):
         vclient = bot.voice.connections.get(message.guild)
         if vclient != None:
-            await bot.voice.playMusic(fullCommand[1], vclient)
+            await bot.voice.enqueueSong(fullCommand[1], vclient)
+
+    async def testplay(bot, message, *args):
+        vclient = bot.voice.connections.get(message.guild)
+        if vclient != None:
+            await bot.voice.testPlay(vclient)
