@@ -43,4 +43,7 @@ class VoiceBot:
             print("Invalid value") # make this an exception
             return
         return voiceConnection.musicQueue.setVolume(newVolume / 100)
+
+    def stopMusic(self, voiceConnection):
+        return voiceConnection.musicQueue.stop()
         

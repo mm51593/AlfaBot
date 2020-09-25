@@ -34,3 +34,10 @@ class functionsVoice:
             else:
                 bot.voice.setVolume(vclient, fullCommand[1])
         return
+
+    async def stop(bot, message, *args):
+        vclient = bot.voice.connections.get(message.guild)
+        if vclient != None:
+            bot.voice.stopMusic(vclient)
+        return
+

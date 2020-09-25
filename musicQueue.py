@@ -19,12 +19,12 @@ class MusicQueue:
             print(e) # make this an exception
         self.queue.append(self.ytdl.prepare_filename(data))
 
-        if len(self.queue) == 1:
+        if not self.current:
             self.playNext()
         return
 
     def playNext(self):
-        self.current = PCMVolumeTransformer(FFmpegPCMAudio(self.queue[0]), self.volume)
+        self.current = PCMVolumeTransformer(FFmpegPCMAudio(self.queue.pop(0)), self.volume)
         self.voice.play(self.current, after = self.finalise)
         return
 
@@ -32,12 +32,19 @@ class MusicQueue:
         if E:
             print('Playback error')
         else:
-            self.queue.pop(0)
-            if len(self.queue) > 0:
+            if self.queue:
                 self.playNext()
+            else:
+                self.current = None
         return
 
     def setVolume(self, newVolume):
         self.volume = newVolume
         self.current.volume = newVolume
+        return
+
+    def stop(self):
+        self.queue.clear()
+        if self.voice.is_playing():
+            self.voice.stop()
         return
