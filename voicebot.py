@@ -22,11 +22,11 @@ class VoiceBot:
         await voiceClient.move_to(voiceChannel)
 
     async def playMusic(self, url, voiceConnection):
-        ytdl_format_options = {'format': 'bestaudio/best'}
+        ytdl_format_options = {'format': 'bestaudio/best', 'outtmpl': './music_cache/%(id)s-%(title)s'}
         ytdl = YoutubeDL(ytdl_format_options)
         try:
             data = ytdl.extract_info(url, download = True)
         except:
-            pass
+            print('data error')
         filename = ytdl.prepare_filename(data)
         voiceConnection.play(FFmpegPCMAudio(filename))
