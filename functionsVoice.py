@@ -24,9 +24,13 @@ class functionsVoice:
     async def play(bot, message, fullCommand, *args):
         vclient = bot.voice.connections.get(message.guild)
         if vclient != None:
-            await bot.voice.enqueueSong(fullCommand[1], vclient)
+            bot.voice.enqueueSong(fullCommand[1], vclient)
 
-    async def testplay(bot, message, *args):
+    async def volume(bot, message, fullCommand, *args):
         vclient = bot.voice.connections.get(message.guild)
         if vclient != None:
-            await bot.voice.testPlay(vclient)
+            if len(fullCommand) == 1:
+                await bot.sendMessage(message, "Current volume: {}.".format(int(bot.voice.getVolume(vclient) * 100)))
+            else:
+                bot.voice.setVolume(vclient, fullCommand[1])
+        return

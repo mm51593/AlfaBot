@@ -29,6 +29,18 @@ class VoiceBot:
         await voiceClient.move_to(voiceChannel)
         return
 
-    async def enqueueSong(self, url, voiceConnection):
+    def enqueueSong(self, url, voiceConnection):
         voiceConnection.musicQueue.enqueue(url)
         return
+
+    def getVolume(self, voiceConnection):
+        return voiceConnection.musicQueue.volume
+
+    def setVolume(self, voiceConnection, volume):
+        try:
+            newVolume = int(volume)
+        except:
+            print("Invalid value") # make this an exception
+            return
+        return voiceConnection.musicQueue.setVolume(newVolume / 100)
+        

@@ -1,4 +1,5 @@
 from discord import FFmpegPCMAudio
+from discord import PCMVolumeTransformer
 
 class MusicQueue:
     ''' Manipulates song queueing '''
@@ -7,6 +8,8 @@ class MusicQueue:
         self.queue = []
         self.voice = voiceConnection
         self.ytdl = ytdl
+        self.volume = 0.5
+        self.current = None
         return
 
     def enqueue(self, url):
@@ -21,7 +24,8 @@ class MusicQueue:
         return
 
     def playNext(self):
-        self.voice.play(FFmpegPCMAudio(self.queue[0]), after = self.finalise)
+        self.current = PCMVolumeTransformer(FFmpegPCMAudio(self.queue[0]), self.volume)
+        self.voice.play(self.current, after = self.finalise)
         return
 
     def finalise(self, E):
@@ -31,4 +35,9 @@ class MusicQueue:
             self.queue.pop(0)
             if len(self.queue) > 0:
                 self.playNext()
+        return
+
+    def setVolume(self, newVolume):
+        self.volume = newVolume
+        self.current.volume = newVolume
         return
