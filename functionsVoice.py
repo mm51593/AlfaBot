@@ -30,7 +30,7 @@ class functionsVoice:
         vclient = bot.voice.connections.get(message.guild)
         if vclient != None:
             if len(fullCommand) == 1:
-                await bot.sendMessage(message, "Current volume: {}.".format(int(bot.voice.getVolume(vclient) * 100)))
+                await bot.sendMessage(message.channel, "Current volume: {}.".format(int(bot.voice.getVolume(vclient) * 100)))
             else:
                 bot.voice.setVolume(vclient, fullCommand[1])
         return

@@ -5,7 +5,7 @@ class functionsBase:
         return
 
     async def test(bot, message, *args):
-        await bot.sendMessage(message, 'Test')
+        await bot.sendMessage(message.channel, 'Test')
         return
     
     async def commands(bot, message, *args):
@@ -17,4 +17,4 @@ class functionsBase:
             text += x
             i += 1
         text += '```'
-        await bot.sendMessage(message, text)
+        await bot.sendMessage(message.channel, text)

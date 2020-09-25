@@ -35,8 +35,8 @@ class Bot:
         await self.client.logout()
         return
 
-    async def sendMessage(self, message, messageText):
-        await message.channel.send(messageText)
+    async def sendMessage(self, channel, messageText):
+        await channel.send(messageText)
         return
 
     def messageTrimmer(self, message):
