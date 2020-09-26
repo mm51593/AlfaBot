@@ -9,7 +9,7 @@ class VoiceBot:
         self.connections = dict()        
         ytdl_format_options = {
             'format': 'bestaudio/best',
-            'outtmpl': './music_cache/%(id)s-%(title)s',
+            #'outtmpl': './music_cache/%(id)s-%(title)s',
             'quiet': True}
         self.ytdl = YoutubeDL(ytdl_format_options)
         return
@@ -46,4 +46,10 @@ class VoiceBot:
 
     def stopMusic(self, voiceConnection):
         return voiceConnection.musicQueue.stop()
+
+    def pauseMusic(self, voiceConnection):
+        return voiceConnection.musicQueue.pause()
+
+    def resumeMusic(self, voiceConnection):
+        return voiceConnection.musicQueue.resume()
         

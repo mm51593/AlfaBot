@@ -13,25 +13,28 @@ class MusicQueue:
         return
 
     def enqueue(self, url):
-        try:
-            data = self.ytdl.extract_info(url, download = False)
-        except Exception as e: 
-            print(e) # make this an exception
-        self.queue.append(self.ytdl.prepare_filename(data))
-
+        self.queue.append(url)
+        
         if not self.current:
             self.playNext()
         return
 
     def playNext(self):
-        self.current = PCMVolumeTransformer(FFmpegPCMAudio(self.queue.pop(0)), self.volume)
+        try:
+            data = self.ytdl.extract_info(self.queue.pop(0), download = False)
+        except Exception as e:
+            print(e) # make this an exception
+
+        self.current = PCMVolumeTransformer(FFmpegPCMAudio(data['url']), self.volume)
         self.voice.play(self.current, after = self.finalise)
+        print('playing')
         return
 
     def finalise(self, E):
         if E:
             print('Playback error')
         else:
+            print('finished')
             if self.queue:
                 self.playNext()
             else:
@@ -45,6 +48,16 @@ class MusicQueue:
 
     def stop(self):
         self.queue.clear()
-        if self.voice.is_playing():
+        if self.voice.is_playing() or self.voice.is_paused():
             self.voice.stop()
+        return
+
+    def pause(self):
+        if self.voice.is_playing():
+            self.voice.pause()
+        return
+
+    def resume(self):
+        if self.voice.is_paused():
+            self.voice.resume()
         return

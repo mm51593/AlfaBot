@@ -41,3 +41,14 @@ class functionsVoice:
             bot.voice.stopMusic(vclient)
         return
 
+    async def pause(bot, message, *args):
+        vclient = bot.voice.connections.get(message.guild)
+        if vclient != None:
+            bot.voice.pauseMusic(vclient)
+        return
+
+    async def resume(bot, message, *args):
+        vclient = bot.voice.connections.get(message.guild)
+        if vclient != None:
+            bot.voice.resumeMusic(vclient)
+        return
