@@ -3,23 +3,23 @@ class functionsVoice:
     
     
     async def join(bot, message, *args):
-        currentConnection = bot.voice.connections.get(message.guild)
-        for channel in message.channel.guild.voice_channels:
-            for member in channel.members:
-                if member == message.author:
-                    if currentConnection != None:
-                        if currentConnection.channel == channel:
-                            return
-                        else:
-                            await bot.voice.moveToVoiceChannel(currentConnection, channel)
-                            return
-                    await bot.voice.connectToVoiceChannel(channel)
-                    return
+        currentConnection = message.guild.voice_client
+        newConnection = message.author.voice
+
+        if newConnection:
+            newChannel = newConnection.channel
+            if currentConnection:
+                await bot.voice.moveToVoiceChannel(currentConnection, newChannel)
+            else:
+                await bot.voice.connectToVoiceChannel(newChannel)
+        else:
+            print("No target channel")
+        return
                 
     async def leave(bot, message, *args):
-        if bot.voice.connections.get(message.guild) != None:
-            await bot.voice.disconnectFromVoiceChannel(bot.voice.connections[message.guild])
-
+        if message.guild.voice_client:
+            await bot.voice.disconnectFromVoiceChannel(message.guild.voice_client)
+        return
     
     async def play(bot, message, fullCommand, *args):
         vclient = bot.voice.connections.get(message.guild)
