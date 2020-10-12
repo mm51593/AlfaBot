@@ -4,6 +4,11 @@ from discord import PCMVolumeTransformer
 class MusicQueue:
     ''' Manipulates song queueing '''
 
+    FFMPEG_OPTIONS = {
+        'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+        'options': '-vn',
+    }
+
     def __init__(self, ytdl, voiceConnection):
         self.queue = []
         self.voice = voiceConnection
@@ -21,11 +26,20 @@ class MusicQueue:
 
     def playNext(self):
         try:
-            data = self.ytdl.extract_info(self.queue.pop(0), download = False)
+            info = self.ytdl.extract_info(self.queue.pop(0), download = False, process = False)
         except Exception as e:
             print(e) # make this an exception
 
-        self.current = PCMVolumeTransformer(FFmpegPCMAudio(data['url']), self.volume)
+        try:
+            data = self.ytdl.extract_info(info['url'], download = False)
+        except Exception as e:
+            print(e) # make this an exception
+
+        if 'entries' in data:
+            data = data['entries'][0]
+
+        #print(data)
+        self.current = PCMVolumeTransformer(FFmpegPCMAudio(data['url'], **self.FFMPEG_OPTIONS), self.volume)
         self.voice.play(self.current, after = self.finalise)
         print('playing')
         return

@@ -8,8 +8,10 @@ class VoiceBot:
         self.client = client        
         ytdl_format_options = {
             'format': 'bestaudio/best',
-            #'outtmpl': './music_cache/%(id)s-%(title)s',
-            'quiet': True}
+            'extractaudio': True,
+            'outtmpl': './music_cache/%(id)s-%(title)s',
+            'quiet': True,
+            'default_search': 'auto'}
         self.ytdl = YoutubeDL(ytdl_format_options)
         return
     
