@@ -5,8 +5,7 @@ class VoiceBot:
     ''' Voice chat funcionality '''
     
     def __init__(self, client):
-        self.client = client
-        self.connections = dict()        
+        self.client = client        
         ytdl_format_options = {
             'format': 'bestaudio/best',
             #'outtmpl': './music_cache/%(id)s-%(title)s',
@@ -15,13 +14,12 @@ class VoiceBot:
         return
     
     async def connectToVoiceChannel(self, voiceChannel):
-        self.connections[voiceChannel.guild] = await voiceChannel.connect()
-        self.connections[voiceChannel.guild].musicQueue = MusicQueue(self.ytdl, self.connections[voiceChannel.guild])
+        vclient = await voiceChannel.connect()
+        vclient.musicQueue = MusicQueue(self.ytdl, vclient)
         return
         
     async def disconnectFromVoiceChannel(self, voiceConnection):
         await voiceConnection.disconnect()
-        del self.connections[voiceConnection.guild]
         return
 
     async def moveToVoiceChannel(self, voiceClient, voiceChannel):

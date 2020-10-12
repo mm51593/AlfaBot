@@ -22,13 +22,13 @@ class functionsVoice:
         return
     
     async def play(bot, message, fullCommand, *args):
-        vclient = bot.voice.connections.get(message.guild)
+        vclient = message.guild.voice_client
         if vclient != None:
             bot.voice.enqueueSong(fullCommand[1], vclient)
 
     async def volume(bot, message, fullCommand, *args):
-        vclient = bot.voice.connections.get(message.guild)
-        if vclient != None:
+        vclient = message.guild.voice_client
+        if vclient:
             if len(fullCommand) == 1:
                 await bot.sendMessage(message.channel, "Current volume: {}.".format(int(bot.voice.getVolume(vclient) * 100)))
             else:
@@ -36,19 +36,19 @@ class functionsVoice:
         return
 
     async def stop(bot, message, *args):
-        vclient = bot.voice.connections.get(message.guild)
-        if vclient != None:
+        vclient = message.guild.voice_client
+        if vclient:
             bot.voice.stopMusic(vclient)
         return
 
     async def pause(bot, message, *args):
-        vclient = bot.voice.connections.get(message.guild)
-        if vclient != None:
+        vclient = message.guild.voice_client
+        if vclient:
             bot.voice.pauseMusic(vclient)
         return
 
     async def resume(bot, message, *args):
-        vclient = bot.voice.connections.get(message.guild)
-        if vclient != None:
+        vclient = message.guild.voice_client
+        if vclient:
             bot.voice.resumeMusic(vclient)
         return
