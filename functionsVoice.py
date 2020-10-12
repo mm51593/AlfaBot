@@ -30,7 +30,7 @@ class functionsVoice:
         vclient = message.guild.voice_client
         if vclient:
             if len(fullCommand) == 1:
-                await bot.sendMessage(message.channel, "Current volume: {}.".format(int(bot.voice.getVolume(vclient) * 100)))
+                await bot.sendMessage(message.channel, "Current volume: `{}`".format(int(bot.voice.getVolume(vclient) * 100)))
             else:
                 bot.voice.setVolume(vclient, fullCommand[1])
         return
@@ -51,4 +51,10 @@ class functionsVoice:
         vclient = message.guild.voice_client
         if vclient:
             bot.voice.resumeMusic(vclient)
+        return
+
+    async def skip(bot, message, *args):
+        vclient = message.guild.voice_client
+        if vclient:
+            bot.voice.skipSong(vclient)
         return

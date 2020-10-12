@@ -52,4 +52,6 @@ class VoiceBot:
 
     def resumeMusic(self, voiceConnection):
         return voiceConnection.musicQueue.resume()
-        
+       
+    def skipSong(self, voiceConnection):
+        return voiceConnection.musicQueue.skip()

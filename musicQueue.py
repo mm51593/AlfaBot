@@ -75,3 +75,8 @@ class MusicQueue:
         if self.voice.is_paused():
             self.voice.resume()
         return
+
+    def skip(self):
+        if self.current:
+            self.voice.stop()
+        return
