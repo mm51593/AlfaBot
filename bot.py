@@ -6,7 +6,9 @@ class Bot:
     '''low level client manipulation'''
 
     def __init__(self, settings):
-        self.client = discord.Client()
+        intents = discord.Intents.default()
+        intents.message_content = True
+        self.client = discord.Client(intents=intents)
         self.settings = settings
         self.commands = Commands().commands
         self.voice = VoiceBot(self.client)
@@ -32,7 +34,7 @@ class Bot:
 
     async def end(self):
         print("Shutting down...")
-        await self.client.logout()
+        await self.client.close()
         return
 
     async def sendMessage(self, channel, messageText):

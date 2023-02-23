@@ -8,8 +8,10 @@ class VoiceBot:
         self.client = client        
         ytdl_format_options = {
             'format': 'bestaudio/best',
+            'extractaudio': True,
             'outtmpl': './music_cache/%(id)s-%(title)s',
-            'quiet': True}
+            'quiet': True,
+            'default_search': 'auto'}
         self.ytdl = YoutubeDL(ytdl_format_options)
         return
     
@@ -50,4 +52,6 @@ class VoiceBot:
 
     def resumeMusic(self, voiceConnection):
         return voiceConnection.musicQueue.resume()
-        
+       
+    def skipSong(self, voiceConnection):
+        return voiceConnection.musicQueue.skip()
