@@ -1,4 +1,4 @@
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 from musicQueue import MusicQueue
 
 class VoiceBot:
@@ -8,7 +8,7 @@ class VoiceBot:
         self.client = client        
         ytdl_format_options = {
             'format': 'bestaudio/best',
-            #'outtmpl': './music_cache/%(id)s-%(title)s',
+            'outtmpl': './music_cache/%(id)s-%(title)s',
             'quiet': True}
         self.ytdl = YoutubeDL(ytdl_format_options)
         return
