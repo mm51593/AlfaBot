@@ -27,13 +27,10 @@ class MusicQueue:
     def playNext(self):
         try:
             info = self.ytdl.extract_info(self.queue.pop(0), download = False, process = False)
-        except Exception as e:
-            print(e) # make this an exception
-
-        try:
             data = self.ytdl.extract_info(info['url'], download = False)
         except Exception as e:
             print(e) # make this an exception
+            return
 
         if 'entries' in data:
             data = data['entries'][0]
